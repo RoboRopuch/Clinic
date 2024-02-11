@@ -1,0 +1,78 @@
+﻿@model Clinic.Models.ViewModels.BookBySpecRequest
+
+<body>
+
+    <div class="container py-5">
+        @if (Model != null && Model.Visits.Any())
+        {
+            <h1>All available visits in: @Model.Specialisation</h1>
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Is Booked</th>
+                            <th>Doctor</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.Visits)
+                        {
+                            <tr>
+                                <td>@rec.Day.Date.ToString("yyyy-MM-dd")</td>
+                                <td>@rec.StartTime.TimeOfDay</td>
+                                <td>@rec.EndTime.TimeOfDay</td>
+                                <td>@rec.Isbooked</td>
+                                <td>Dr. @rec.Doctor.Name @rec.Doctor.Surname</td>
+
+                                <td>
+                                    <div class="d-flex">
+                                        <a asp-area=""
+                                           asp-controller="Patient"
+                                           asp-action="Book"
+                                           asp-route-id="@rec.Id"
+                                           asp-route-specialisation="@Model.Specialisation"
+                                           
+                                           class="btn btn-dark btn-sm">
+                                            Book
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex">
+                <a asp-area=""
+                   asp-controller="Patient"
+                   asp-action="pickSpec"
+                   class="btn btn-dark btn-sm">
+                    Go back
+                </a>
+            </div>
+        }
+        else
+        {
+            <h1>There are no available visits in: @Model.Specialisation</h1>
+
+            <div class="container mb-3">
+                <em>Wait for the visits to be added or check other categories</em>
+            </div>
+
+            <div class="d-flex">
+                <a asp-area=""
+                   asp-controller="Patient"
+                   asp-action="pickSpec"
+                   class="btn btn-dark btn-sm">
+                    Go back
+                </a>
+            </div>
+        }
+    </div>
+</body>

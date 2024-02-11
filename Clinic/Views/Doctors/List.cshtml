@@ -1,0 +1,64 @@
+﻿@model List<Clinic.Models.Domain_Entities.Doctor>
+
+@*
+
+*@
+@{
+}
+
+<div>
+    <div class="container py-5">
+        <h1>  Display all doctors  </h1>
+    </div>
+</div>
+
+<div class="container" py-5>
+    @if (Model != null && Model.Any())
+    {
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Doc Id</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Specialisation</th>
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tag in Model)
+                {
+                    <tr>
+                        <td>@tag.Id</td>
+                        <td>@tag.Name</td>
+                        <td>@tag.Surname</td>
+                        <td>@tag.Specialisation</td>
+                        <td>
+                                    <div class="d-flex">
+                                    <a asp-area=""
+                                       asp-controller="Doctors"
+                                       asp-action="Edit"
+                                       asp-route-id="@tag.Id"
+                                       class=" btn btn-dark btn-sm">
+                                        Edit
+                                    </a>
+                                    </div>
+
+                        </td>
+
+
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    }
+    else
+    {
+        <p>No doctors were found</p>
+    }
+</div>

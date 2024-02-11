@@ -1,0 +1,102 @@
+﻿@model List<Clinic.Models.Domain_Entities.Doctor>
+
+<meta charset='utf-8' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Create schedule - Admin Functionality</h1>
+    </div>
+    <div id='external-events' class="container">
+        <p>
+            <strong>Draggable Events</strong>
+        </p>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var doc in Model)
+            {
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                    <div class='fc-event-main'>@doc.Name @doc.Surname - @doc.Specialisation</div>
+                    
+                </div>
+            }
+        }
+    </div>
+
+    <div class="bg-secondary bg-opacity-10 py-2">
+
+        <div class="btn">
+            copy from previous week
+        </div>
+        <div class="container">
+            <div id='calendar' class="container"></div>
+            <button id="saveButton">Save Events</button>
+
+            <!-- Form to submit the events -->
+            <form id="eventsForm" method="post">
+                @* Hidden input field to store the events JSON *@
+                <input type="hidden" name="eventsJson" id="eventsJson" />
+
+                <button type="submit" style="display:none;">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var Calendar = FullCalendar.Calendar;
+        var Draggable = FullCalendar.Draggable;
+
+        var containerEl = document.getElementById('external-events');
+        var calendarEl = document.getElementById('calendar');
+        var checkbox = document.getElementById('drop-remove');
+
+        // initialize the external events
+        new Draggable(containerEl, {
+            itemSelector: '.fc-event',
+            eventData: function (eventEl) {
+                return {
+                    title: eventEl.innerText,
+                    test: "pupcia"
+                };
+            }
+        });
+
+        // initialize the calendar
+        var calendar = new Calendar(calendarEl, {
+            headerToolbar: {
+                center: 'title',
+                right: 'timeGridWeek,timeGridDay'
+            },
+            slotMinTime: '08:00',
+            slotMaxTime: '20:00',
+            allDaySlot: false,
+            editable: true,
+            initialView: 'timeGridWeek',
+            contentHeight: 'auto',
+            hiddenDays: [0],
+            locale: 'pl',
+            droppable: true,
+            eventConstraint: {
+                startTime: '09:00',
+                endTime: '19:00'
+            }
+        });
+
+        calendar.render();
+
+        // Save button click event
+        document.getElementById('saveButton').addEventListener('click', function () {
+            // Get all events from the calendar
+            var allEvents = calendar.getEvents();
+
+            // Convert events to JSON and update the hidden input field
+            document.getElementById('eventsJson').value = JSON.stringify(allEvents);
+
+            // Submit the form
+            document.getElementById('eventsForm').submit();
+        });
+    });
+</script>

@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IList<IdentityUser>
+
+<div class="container py-5">
+    <h1>Display all unauthorized users</h1>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var preUser in Model)
+                {
+                    <tr>
+                        <td>@preUser.UserName</td>
+                        <td>@preUser.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No pre-users were found</p>
+    }
+</div>

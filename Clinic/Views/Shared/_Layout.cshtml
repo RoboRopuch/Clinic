@@ -1,0 +1,152 @@
+﻿@{
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Clinic</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Clinic.styles.css" asp-append-version="true" /> 
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+</head>
+<body>
+    <header>
+        <nav class="  navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Clinic</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Add">Add doctor</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="List">Display doctors</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="ListUsers">Display patients</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="ListPreUsers">Authorize new users</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Schedule" asp-action="List">Manage schedule</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Raport">Generate report</a></li>
+                                </ul>
+                            </li>
+
+                        }
+                        else if (signInManager.IsSignedIn(User) &&  User.IsInRole("Doctor"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Doctor</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Shifts">Display schedule</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Appointments">Booked Appointments</a></li>
+                                </ul>
+                            </li>
+
+
+                        }
+                        else if (signInManager.IsSignedIn(User) && User.IsInRole("User"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Patient</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="GetAppointments">Booked Appointments</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="pickSpec">Book appointment</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Patient" asp-action="Details">Undergone visits</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            if (signInManager.IsSignedIn(User) && User.IsInRole("PreUser"))
+                            {
+                                <li >
+                                    <a class="nav-link text-light" >
+                                        <em>Your account is being authorized</em>
+                                    </a>
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a class="nav-link text-light">
+                                        <em>Log in to see more options</em>
+                                    </a>
+
+                                </li>
+                            }
+
+
+                        }
+
+
+
+                    </ul>
+
+                    @inject UserManager<IdentityUser> UserManager
+
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <div class="d-flex align-items-center me-3 text-light">
+                            <span class="me-2">@User?.Identity?.Name</span>
+                            <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+                        </div>
+                        <a class="btn me-3 bg-light text-dark"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="Logout">
+                            Logout
+                        </a>
+                    }
+
+
+
+
+
+                    else
+                    {
+                        <a class="btn me-3 bg-light text-dark"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="Login">
+                            Login
+                        </a>
+                        <a class="btn me-3 bg-light text-dark"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="Register">
+                            Register
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

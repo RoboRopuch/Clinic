@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Clinic.Models.Domain_Entities.Schedule>
+
+
+<div>
+    <div class="container py-5">
+        <h1>Schedule</h1>
+    </div>
+</div>
+
+<div class="container" py-5>
+    @if (Model != null && Model.Any())
+    {
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start</th>
+                        <th>Finish</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tag in Model)
+                    {
+                        <tr>
+                            <td>@tag.Day</td>
+                            <td>@tag.StartTime</td>
+                            <td>@tag.EndTime</td>
+                       
+
+
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No shifts yet! Wait for the admin to add some</p>
+    }
+    </di

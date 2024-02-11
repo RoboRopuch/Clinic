@@ -1,0 +1,83 @@
+﻿@model List<Clinic.Models.Domain_Entities.Visits>
+
+<div class="container">
+    <div class="container py-5">
+        <h1>Undergone visits</h1>
+    </div>
+
+    <div class="container">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Visit Id</th>
+                        <th>Day</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Doctor</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var visit in Model)
+                    {
+                        <tr>
+                            <td>@visit.Id</td>
+                            <td>@visit.Day.ToString("yyyy-MM-dd")</td>
+                            <td>@visit.StartTime.ToString("HH:mm")</td>
+                            <td>@visit.EndTime.ToString("HH:mm")</td>
+                            <td>@visit.Doctor?.Name @visit.Doctor?.Surname</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(visit.Description))
+                                {
+                                    <span class="truncated" title="@visit.Description">@visit.Description.Substring(0, Math.Min(30, visit.Description.Length)))... <button class="btn btn-link show-more-btn">Show more</button></span>
+
+                                    <div class="full" style="display:none;">
+                                        <p><strong>Full Description:</strong> @visit.Description</p>
+                                        <button class="btn btn-link show-less-btn">Show less</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <em>No description available</em>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <em>You have not done any visists yet</em>
+        }
+    </div>
+</div>
+
+<script>
+    // JavaScript to toggle between showing full and truncated description
+    document.addEventListener('DOMContentLoaded', function () {
+        var containers = document.querySelectorAll('.container'); // Change to the closest static parent containers
+
+        containers.forEach(function (container) {
+            container.addEventListener('click', function (e) {
+                if (e.target.classList.contains('show-more-btn')) {
+                    var truncatedSpan = e.target.parentElement;
+                    var fullDescription = truncatedSpan.nextElementSibling;
+
+                    truncatedSpan.style.display = 'none';
+                    fullDescription.style.display = 'block';
+                }
+
+                if (e.target.classList.contains('show-less-btn')) {
+                    var fullDescription = e.target.parentElement;
+                    var truncatedSpan = fullDescription.previousElementSibling;
+
+                    truncatedSpan.style.display = 'inline';
+                    fullDescription.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

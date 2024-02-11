@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IList<IdentityUser>
+
+<div class="container py-5">
+    <h1>Display all unauthorized users</h1>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Authorization</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var preUser in Model)
+                {
+                    <tr>
+                        <td>@preUser.UserName</td>
+                        <td>@preUser.Email</td>
+                        <td>
+                            <div class="d-flex">
+                                <a asp-area=""
+                                   asp-controller="Account"
+                                   asp-action="GiveUserRole"
+                                   asp-route-id="@preUser.Id"
+                                   class=" btn btn-dark btn-sm">
+                                    Give User access
+                                </a>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>All new users have been authorized! Good job </p>
+    }
+</div>

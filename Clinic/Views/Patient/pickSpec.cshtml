@@ -1,0 +1,27 @@
+﻿@model Clinic.Models.ViewModels.PassSpec
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<div class="container py-5">
+    <h1>Welcome, @User.Identity?.Name! Who do you want to visit?</h1>
+</div>
+
+<div class="container py-5">
+    <form method="post">
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" asp-for="Specialisation">
+                <option selected>Specialisation</option>
+                <option>domowy</option>
+                <option>laryngolog</option>
+                <option>okulista</option>
+                <option>neurolog</option>
+                <option>ortopeda</option>
+                <option>pediatra</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Clinic.Models.Domain_Entities.Visits>
+
+
+<div>
+    <div class="container py-5">
+        <h1> Booked appointments  </h1>
+    </div>
+</div>
+
+<div class="container" py-5>
+    @if (Model != null && Model.Any())
+    {
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start</th>
+                        <th>Finish</th>
+                        <th>Booked</th>
+                        <th>Finished</th>
+                        <th>Patient</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tag in Model)
+                    {
+                        <tr>
+                            <td>@tag.Day</td>
+                            <td>@tag.StartTime</td>
+                            <td>@tag.EndTime</td>
+                            <td>@tag.Isbooked</td>
+                            <td>@tag.IsFinished</td>
+                            @if (tag.Patient != null)
+                            {
+                                <td>@tag.Patient.Name @tag.Patient.Surname </td>
+                            }
+                            else
+                            {
+                                <td>No patient bookd the visit</td>
+                            }
+                            <td>
+                                @if (tag.IsFinished == false)
+                                {
+                                <div class="d-flex">
+                                    <a asp-area=""
+                                       asp-controller="Doctors"
+                                       asp-action="Finish"
+                                       asp-route-id="@tag.Id"
+                                       class=" btn btn-dark btn-sm">
+                                        Finish
+                                    </a>
+                                    </div>
+                                } else
+                                {
+                                    <p><strong>finished</strong></p>
+
+                                }
+
+
+
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <em>When patient will book appointment with you, it will be avaliable here</em>
+    }
+    </di

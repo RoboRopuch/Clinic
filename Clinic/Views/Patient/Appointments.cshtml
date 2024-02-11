@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Clinic.Models.Domain_Entities.Visits>
+
+
+<div>
+    <div class="container py-5">
+        <h1> Check out booked visists below ...</h1>
+    </div>
+</div>
+
+<div class="container" py-5>
+    @if (Model != null && Model.Any())
+    {
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start</th>
+                        <th>Finish</th>
+                        <th>Finished</th>
+                        <th>Doctor</th>
+                        <th>Specialisation</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tag in Model)
+                    {
+                        <tr>
+                            <td>@tag.Day.ToString("yyyy-MM-dd")</td>
+                            <td>@tag.StartTime.ToString("HH:mm:ss")</td>
+                            <td>@tag.EndTime.ToString("HH:mm:ss")</td>
+                            <td>@tag.IsFinished</td>
+                            <td> Dr @tag.Doctor.Surname</td>
+                            <td>@tag.Doctor.Specialisation</td>
+
+                            <td>
+                                @if (tag.IsFinished == false)
+                                {
+                                <div class="d-flex">
+                                    <a asp-area=""
+                                       asp-controller="Patient"
+                                       asp-action="ResignDetails"
+                                       asp-route-id="@tag.Id"
+                                       class=" btn btn-dark btn-sm">
+                                        Resign
+                                    </a>
+                                    </div>
+                                } else
+                                {
+                                    <p><strong>finished</strong></p>
+
+                                }
+
+
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>No shifts yet! Wait for the admin to add some</p>
+    }
+    </div>

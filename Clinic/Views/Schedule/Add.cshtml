@@ -1,0 +1,40 @@
+﻿@model Clinic.Models.ViewModels.ScheduleViewModel
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Add Doctor - Admin Functionality</h1>
+    </div>
+    <div class="container py-5">
+        <form method="post">
+            <!-- Doctor dropdown -->
+            <label class="form-label">Tags</label>
+            <select class="form-select" 
+                asp-items="@Model.Docs"
+                asp-for="DoctorId">
+
+            </select>
+
+            <!-- Day input -->
+            <div class="mb-3">
+                <label for="day">Day:</label>
+                <input type="date" id="day" class="form-control"  required asp-for="Day" />
+            </div>
+
+            <!-- Start Time input -->
+            <div class="mb-3">
+                <label for="startTime">Start Time (8 - 18.00, every 15 minutes) :</label>
+                <input type="time" id="startTime" class="form-control" min="08:00" max="18:00" step="900" required asp-for="StartTime" />
+            </div>
+
+            <!-- End Time input -->
+            <div class="mb-3">
+                <label for="endTime">End Time (8 - 18.00, every 15 minutes)  :</label>
+                <input type="time" id="endTime" class="form-control" min="08:00" max="18:00" step="900" required asp-for="EndTime" />
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

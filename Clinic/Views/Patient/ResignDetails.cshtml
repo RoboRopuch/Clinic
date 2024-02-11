@@ -1,0 +1,46 @@
+﻿@model Clinic.Models.Domain_Entities.Visits
+
+@{
+    ViewData["Title"] = "Visit Details";
+}
+
+<div class="container py-5">
+    <h1>Visit Details</h1>
+</div>
+
+<div class="container">
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">Day:</dt>
+            <dd class="col-sm-10">@Model.Day.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-2">Start Time:</dt>
+            <dd class="col-sm-10">@Model.StartTime.ToString("HH:mm:ss")</dd>
+
+            <dt class="col-sm-2">End Time:</dt>
+            <dd class="col-sm-10">@Model.EndTime.ToString("HH:mm:ss")</dd>
+
+            <dt class="col-sm-2">Finished:</dt>
+            <dd class="col-sm-10">@Model.IsFinished</dd>
+
+            <dt class="col-sm-2">Doctor:</dt>
+            <dd class="col-sm-10">Dr @Model.Doctor.Surname</dd>
+
+            <dt class="col-sm-2">Specialisation:</dt>
+            <dd class="col-sm-10">@Model.Doctor.Specialisation</dd>
+        </dl>
+
+        <div class="d-flex">
+            <div class="mr-2">
+                <a asp-area=""
+                   asp-controller="Patient"
+                   asp-action="Resign"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-danger btn-sm">
+                    Resign
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

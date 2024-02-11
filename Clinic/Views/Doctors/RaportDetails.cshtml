@@ -1,0 +1,30 @@
+﻿@model List<Clinic.Models.ViewModels.RaportRequestDetails>
+
+<div class="container">
+    <h1>Raport Details</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lekarz</th>
+                <th>Czas z grafiku</th>
+                <th>Liczba wizyt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model)
+            {
+                <tr>
+                    <td>@detail.doctorName</td>
+                    <td>
+                        @foreach (var timeSlot in detail.dayTimeSlots)
+                        {
+                            <div><strong>@timeSlot.Day.ToString("dddd")</strong> (@timeSlot.Day.ToString("dd.MM.yyyy")) @timeSlot.Start.ToString("HH:mm") - @timeSlot.End.ToString("HH:mm")</div>
+                        }
+                    </td>
+                    <td>@detail.visits</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

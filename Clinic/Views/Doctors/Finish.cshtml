@@ -1,0 +1,63 @@
+﻿@model Clinic.Models.ViewModels.FinishVisitRequest
+
+<div class="container">
+    <div class="container py-5">
+        <h1>Edit Tag - Admin Functionality</h1>
+    </div>
+
+    <div class="container">
+        @if (Model != null)
+        {
+            <form method="post">
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Visit Id</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="VisitId" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="Patient.Name" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Patient Surname</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="Patient.Surname" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Patient Surname</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="Day" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Patient Surname</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="StartTime" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="readonlyField" class="form-label">Patient Surname</label>
+                    <input type="text" class="form-control" id="displayname" asp-for="EndTime" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input class="form-control" id="description" rows="5" asp-for="Descripton" />
+                </div>
+
+
+
+                <div class="mt-3">
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-dark">Finish</button>
+                        <a class="btn btn-danger ms-2" asp-area="" asp-controller="Doctors" asp-action="Appointments">Go back</a>
+                    </div>
+                </div>
+            </form>
+        }
+        else
+        {
+            <p>Something went wrong, could not find the tag</p>
+        }
+    </div>
+</div>
