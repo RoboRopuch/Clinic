@@ -1,7 +1,7 @@
 # Project Overview: Medical Clinic Management System 🩺
 
 <div align="center">
-    <img src="https://github.com/RoboRopuch/Clinic/assets/128647614/56cc493e-aab7-4984-84ed-51f4c6a1e1b8" alt="Image" />
+    <img src="https://github.com/RoboRopuch/Clinic/assets/128647614/56cc493e-aab7-4984-84ed-51f4c6a1e1b8" alt="project overview" />
 </div>
 
 ## Description:
